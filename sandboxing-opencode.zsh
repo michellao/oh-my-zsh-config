@@ -1,6 +1,6 @@
-opencode() {
-  case "$OSTYPE" in 
-    linux*) bwrap \
+if [[ "$OSTYPE" = "linux"* ]]; then
+  opencode() {
+    bwrap \
       --die-with-parent \
       --unshare-all \
       --share-net \
@@ -31,6 +31,6 @@ opencode() {
       --bind $HOME/.local/state/opencode $HOME/.local/state/opencode \
       --bind $HOME/.cache/opencode $HOME/.cache/opencode \
       --bind $HOME/.config/opencode $HOME/.config/opencode \
-    opencode "$@" ;;
-  esac
-}
+    opencode "$@"
+  }
+fi
