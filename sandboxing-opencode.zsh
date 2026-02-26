@@ -4,7 +4,6 @@ if [[ "$OSTYPE" = "linux"* ]]; then
       --die-with-parent \
       --unshare-all \
       --share-net \
-      --new-session \
       --bind $PWD $PWD \
       --chdir $PWD \
       `# Basic filesystem structure` \
