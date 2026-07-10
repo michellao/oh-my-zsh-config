@@ -59,4 +59,25 @@ if [[ "$OSTYPE" = "linux"* ]]; then
       --bind $HOME/.codex $HOME/.codex \
       codex "$@"
   }
+
+  pi() {
+    bwrap \
+      --die-with-parent \
+      --unshare-all \
+      --share-net \
+      --bind $PWD $PWD \
+      --chdir $PWD \
+      $filesystem_structure_args \
+      $minimal_etc_files_args \
+      $ssl_certificates_args \
+      `# Pi path` \
+      --ro-bind "$HOME/.local/share/mise" "$HOME/.local/share/mise" \
+      --bind "$HOME/.agents" "$HOME/.agents" \
+      --bind "$HOME/.pi" "$HOME/.pi" \
+      pi "$@"
+  }
 fi
+
+#pi() {
+#  smolvm machine run -s "$ZSH_CUSTOM/Smolfile" -v $HOME/.agents:/home/sandbox/.agents -v $HOME/.pi:/home/sandbox/.pi -v $PWD:/workspace -it -- su -c "pi $@" sandbox
+#}
